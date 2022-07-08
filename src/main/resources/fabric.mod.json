@@ -1,0 +1,23 @@
+{
+  "name": "The Source",
+  "id": "the-source",
+  "version": "1.0",
+  "schemaVersion": 1,
+  "authors": [
+    "tbhmens"
+  ],
+  "mixins": [
+    {
+      "config": "mixins.json",
+      "environment": "*"
+    }
+  ],
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "default",
+        "value": "me.tbhmens.TheSource.FabricInit"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[41,)"
+license="MIT"
+showAsResourcePack=false
+
+[[mods]]
+  modId="the-source"
+  version="1.0.0.0"
+  displayName="The Source"
+  authors="tbhmens"
+  description=''''''
+  displayTest="MATCH_VERSION"
+
+  [[dependencies.examplemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[41,)"
+    ordering="NONE"
+    side="BOTH"
+
+  [[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19,1.20)"
+    ordering="NONE"
+    side="BOTH"
