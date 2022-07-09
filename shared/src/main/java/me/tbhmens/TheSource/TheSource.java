@@ -1,9 +1,8 @@
 package me.tbhmens.TheSource;
 
 import me.tbhmens.TheSource.util.WeightedList;
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class TheSource {
     public static WeightedList<Block> ores;

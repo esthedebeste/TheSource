@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class WeightedList<I> {
-    class Weighted {
-        I item;
+    static class Weighted<T> {
+        T item;
         double weight;
 
-        Weighted(I item, double weight) {
+        Weighted(T item, double weight) {
             this.item = item;
             this.weight = weight;
         }
     }
 
-    ArrayList<Weighted> items = new ArrayList<>();
+    ArrayList<Weighted<I>> items = new ArrayList<>();
     double totalWeight = 0;
 
     public WeightedList() {
     }
 
     public void add(I item, double weight) {
-        items.add(new Weighted(item, weight));
+        items.add(new Weighted<>(item, weight));
         totalWeight += weight;
     }
 

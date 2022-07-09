@@ -1,0 +1,65 @@
+buildscript {
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+}
+apply plugin: 'org.spongepowered.mixin'
+
+version = project.mod_version
+group = project.maven_group
+archivesBaseName = project.archives_base_name
+sourceSets {
+    main {
+        java {
+            srcDirs += ["../shared/src/main/java"]
+        }
+        resources {
+            srcDirs += ["../shared/src/main/resources"]
+        }
+    }
+}
+
+def targetJavaVersion = 17
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        it.options.release = targetJavaVersion
+    }
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.19'
+    runs {
+        client {
+            workingDirectory project.file('run/client')
+        }
+        server {
+            workingDirectory project.file('run/server')
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.19-41.0.64'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+mixin {
+    config 'mixins.json'
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+}
