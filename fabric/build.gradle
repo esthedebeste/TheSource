@@ -1,64 +1,57 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
-    id 'maven-publish'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
-version = project.mod_version
-group = project.maven_group
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
 dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:1.19"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.14.8"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.57.0+1.19"
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs += ["../shared/src/main/java"]
-        }
-        resources {
-            srcDirs += ["../shared/src/main/resources"]
-        }
-    }
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
 processResources {
     inputs.property "version", project.version
-    filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
 }
 
-def targetJavaVersion = 17
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        it.options.release = targetJavaVersion
-    }
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
 }
 
-java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
-    archivesBaseName = project.archives_base_name
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
 }
 
 jar {
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
-    }
+    classifier "dev"
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
     }
 }

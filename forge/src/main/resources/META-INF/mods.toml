@@ -1,15 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[41,)"
 license = "MIT"
-showAsResourcePack = false
-
+issueTrackerURL="https://github.com/tbhmens/TheSource"
 [[mods]]
 modId = "thesource"
-version = "1.0.0"
+version = "${version}"
 displayName = "The Source"
 authors = "tbhmens"
 description = ''''''
-displayTest = "MATCH_VERSION"
 
 [[dependencies.thesource]]
 modId = "forge"

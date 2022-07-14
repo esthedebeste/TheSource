@@ -1,23 +1,22 @@
 {
-  "name": "The Source",
-  "id": "the-source",
-  "version": "1.0",
   "schemaVersion": 1,
+  "id": "thesource",
+  "version": "${version}",
+  "name": "TheSource",
+  "description": "",
   "authors": [
     "tbhmens"
   ],
+  "contact": {
+    "repo": "https://github.com/tbhmens/TheSource"
+  },
+  "license": "MIT",
+  "environment": "*",
   "mixins": [
-    {
-      "config": "mixins.json",
-      "environment": "*"
-    }
+    "thesource.mixins.json"
   ],
-  "entrypoints": {
-    "main": [
-      {
-        "adapter": "default",
-        "value": "me.tbhmens.TheSource.FabricInit"
-      }
-    ]
+  "depends": {
+    "fabricloader": ">=0.14.8",
+    "minecraft": ">=1.19"
   }
 }

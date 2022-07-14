@@ -5,10 +5,12 @@
   "injectors": {
     "defaultRequire": 1
   },
+  "minVersion": "0.8",
   "mixins": [
     "MineMixin",
     "XPBlockAccessor",
     "WaterMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "BlocksRegisteredMixin"
   ]
 }
