@@ -3,7 +3,6 @@ loaderVersion = "[41,)"
 license = "MIT"
 showAsResourcePack = false
 
-
 [[mods]]
 modId = "thesource"
 version = "1.0.0"
