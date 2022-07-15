@@ -20,6 +20,7 @@ public class BlocksRegisteredMixin {
             add(Blocks.COPPER_ORE, 4);
             add(Blocks.IRON_ORE, 5);
             add(Blocks.COAL_ORE, 5);
+            add(Blocks.GOLD_ORE, 5);
             add(Blocks.COBBLESTONE, 30);
             add(Blocks.STONE, 30);
         }};

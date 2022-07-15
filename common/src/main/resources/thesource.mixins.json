@@ -7,10 +7,11 @@
   },
   "minVersion": "0.8",
   "mixins": [
-    "MineMixin",
-    "XPBlockAccessor",
-    "WaterMixin",
+    "BlocksRegisteredMixin",
     "ItemStackMixin",
-    "BlocksRegisteredMixin"
+    "MineMixin",
+    "VoidBiomeMixin",
+    "WaterMixin",
+    "XPBlockAccessor"
   ]
 }
